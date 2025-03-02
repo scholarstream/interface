@@ -61,16 +61,23 @@ function App() {
       </select>
       <input type="text" placeholder="Amount per sec (USDC)" />
       <button>Withdraw</button>
+      <StreamsTable />
+    </div>
+  );
+}
 
-      {/* Shared Streams Table */}
+function StreamsTable() {
+  return (
+    <div>
       <h2>📜 Active Streams</h2>
       <table border={1}>
         <thead>
           <tr>
             <th>From (Payer)</th>
             <th>To (Payee)</th>
+            <th>Token</th>
             <th>Amount/sec</th>
-            <th>Status</th>
+            <th>Total Streamed</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -78,56 +85,50 @@ function App() {
           <tr>
             <td>0x1234...</td>
             <td>0x5678...</td>
+            <td>USDC</td>
             <td>0.01 USDC</td>
-            <td>✅ Active</td>
-            <td><button>Withdraw</button></td>
+            <td>4.48589</td>
+            <td>
+              <button>✏ Modify</button>
+            </td>
           </tr>
           <tr>
             <td>0x8765...</td>
             <td>0x4321...</td>
+            <td>USDC</td>
             <td>0.02 USDC</td>
-            <td>❌ Canceled</td>
-            <td></td>
+            <td>10.85714</td>
+            <td>
+              <button>⏸ Pause</button>
+            </td>
+          </tr>
+          <tr>
+            <td>0x7890...</td>
+            <td>0x2468...</td>
+            <td>USDC</td>
+            <td>0.05 USDC</td>
+            <td>20.56321</td>
+            <td>
+              <button>📅 Schedule</button>
+              <button>❌ Cancel</button>
+            </td>
+          </tr>
+          <tr>
+            <td>0xABCD...</td>
+            <td>0xEFGH...</td>
+            <td>USDC</td>
+            <td>0.03 USDC</td>
+            <td>15.48589</td>
+            <td>
+              <button>💰 Withdraw</button>
+            </td>
           </tr>
         </tbody>
       </table>
-
-      {/* History Section */}
-      <h2>📜 Transaction History</h2>
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>Action</th>
-            <th>Type</th>
-            <th>Address / Name</th>
-            <th>Amount</th>
-            <th>Age</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Withdraw</td>
-            <td>dims</td>
-            <td>0x2156...7477</td>
-            <td>0.00736 USDC</td>
-            <td>3 days ago</td>
-            <td><button>Invoice</button></td>
-          </tr>
-          <tr>
-            <td>Receive Stream</td>
-            <td>You</td>
-            <td>0x2156...7477</td>
-            <td>42.85714 USDC/mo</td>
-            <td>3 days ago</td>
-            <td><button>Details</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <button>Export CSV</button>
     </div>
   );
 }
+
 
 export default App;
 
