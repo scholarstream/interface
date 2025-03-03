@@ -1,10 +1,11 @@
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
 function App() {
   return (
     <div>
       {/* Header & Wallet */}
       <h1>🎓 ScholarStream</h1>
-      <button>Connect Wallet</button>
-      <p>Wallet: 0x1234...abcd <button>Disconnect</button></p>
+      <ConnectButton />
 
       {/* Balances Section */}
       <h2>📊 Balances</h2>
@@ -129,6 +130,4 @@ function StreamsTable() {
   );
 }
 
-
 export default App;
-
