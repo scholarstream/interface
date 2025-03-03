@@ -2,132 +2,127 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 function App() {
   return (
-    <div>
+    <div style={{ maxWidth: "800px", padding: '1rem', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
       {/* Header & Wallet */}
       <h1>🎓 ScholarStream</h1>
       <ConnectButton />
-
+      
+      <hr />
+      
       {/* Balances Section */}
-      <h2>📊 Balances</h2>
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Balance</th>
-            <th>To Depleted</th>
-            <th>Monthly Cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>USDC (Arbitrum)</td>
-            <td>15.51411</td>
-            <td>10.86 days</td>
-            <td>42.85714 USDC</td>
-          </tr>
-        </tbody>
-      </table>
-      <button>Deposit New Token</button>
-      <button>Withdraw</button>
-      <button>Top Up</button>
-
-      {/* Payer Actions */}
-      <h2>🟢 Payer Actions</h2>
-      <h3>📥 Deposit Funds</h3>
-      <input type="text" placeholder="Enter Amount (USDC)" />
-      <input type="text" placeholder="% to Vault" />
-      <button>Deposit</button>
-
-      <h3>🔄 Create a Stream</h3>
-      <input type="text" placeholder="Payee Address" />
-      <input type="text" placeholder="Amount per sec (USDC)" />
-      <button>Create Stream</button>
-
-      <h3>⚙ Manage Streams</h3>
-      <select>
-        <option>Select Stream</option>
-        <option value="0xRecipient1">0xRecipient1 - 0.01 USDC/sec</option>
-      </select>
-      <button>Modify</button>
-      <button>Pause</button>
-      <button>Schedule</button>
-      <button>Cancel</button>
-
-      {/* Payee Actions */}
-      <h2>🔵 Payee Actions</h2>
-      <h3>💰 Withdraw Funds</h3>
-      <select>
-        <option>Select Payer</option>
-        <option value="0xPayer1">0xPayer1</option>
-      </select>
-      <input type="text" placeholder="Amount per sec (USDC)" />
-      <button>Withdraw</button>
+      <h2>📊 BALANCES</h2>
+      <h3>Deposit Token:</h3>
+      <Form
+        fields={[
+          { label: "Token", placeholder: "Enter Token" },
+          { label: "Amount", placeholder: "Enter Amount" }
+        ]}
+        submitText="Deposit"
+      />
+      
+      <hr />
+      
+      <h3>Token Balances</h3>
+      <Table
+        headers={["Token", "Balance", "To Depleted", "Monthly Cost", "Actions"]}
+        data={[
+          [
+            "USDC", "15.51411", "10.86 days", "42.85714 USDC", 
+            <span><button>Top Up</button> <button>Withdraw</button></span>
+          ]
+        ]}
+      />
+      
+      <hr />
+      
+      {/* Active Streams Section */}
+      <h2>📜 ACTIVE STREAMS</h2>
+      <h3>Create Stream:</h3>
+      <Form
+        fields={[
+          { label: "Payee", placeholder: "Payee Address" },
+          { label: "Token", placeholder: "Enter Token" },
+          { label: "Amount/sec", placeholder: "Enter Amount" }
+        ]}
+        submitText="Create Stream"
+      />
+      
+      <hr />
+      
+      <h3>Active Streams</h3>
       <StreamsTable />
+      
+      <hr />
+      
+      {/* History Section */}
+      <h2>📖 HISTORY</h2>
+      <HistoryTable />
     </div>
+  );
+}
+
+function Form({ fields, submitText }) {
+  return (
+    <form>
+      {fields.map((field, index) => (
+        <div key={index} style={{ marginBottom: '10px' }}>
+          <label>{field.label}</label>
+          <br />
+          <input type="text" placeholder={field.placeholder} />
+          <br />
+        </div>
+      ))}
+      <button type="submit">{submitText}</button>
+    </form>
+  );
+}
+
+function Table({ headers, data }) {
+  return (
+    <table border={1}>
+      <thead>
+        <tr>
+          {headers.map((header, index) => (
+            <th key={index}>{header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((cell, cellIndex) => (
+              <td key={cellIndex}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
 function StreamsTable() {
   return (
-    <div>
-      <h2>📜 Active Streams</h2>
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>From (Payer)</th>
-            <th>To (Payee)</th>
-            <th>Token</th>
-            <th>Amount/sec</th>
-            <th>Total Streamed</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>0x1234...</td>
-            <td>0x5678...</td>
-            <td>USDC</td>
-            <td>0.01 USDC</td>
-            <td>4.48589</td>
-            <td>
-              <button>✏ Modify</button>
-            </td>
-          </tr>
-          <tr>
-            <td>0x8765...</td>
-            <td>0x4321...</td>
-            <td>USDC</td>
-            <td>0.02 USDC</td>
-            <td>10.85714</td>
-            <td>
-              <button>⏸ Pause</button>
-            </td>
-          </tr>
-          <tr>
-            <td>0x7890...</td>
-            <td>0x2468...</td>
-            <td>USDC</td>
-            <td>0.05 USDC</td>
-            <td>20.56321</td>
-            <td>
-              <button>📅 Schedule</button>
-              <button>❌ Cancel</button>
-            </td>
-          </tr>
-          <tr>
-            <td>0xABCD...</td>
-            <td>0xEFGH...</td>
-            <td>USDC</td>
-            <td>0.03 USDC</td>
-            <td>15.48589</td>
-            <td>
-              <button>💰 Withdraw</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <Table
+      headers={["Flow", "Payer", "Payee", "Token", "Amount/sec", "Total Streamed", "Withdrawable", "Actions"]}
+      data={[
+        ["Outgoing", "0x1234...", "0x5678...", "USDC", "0.01", "4.48589", "2.345", <span><button>Send</button> <button>Cancel Stream</button></span>],
+        ["Incoming", "0x8765...", "0x4321...", "USDC", "0.02", "10.85714", "5.678", <span><button>Send</button> <button>Cancel Stream</button></span>]
+      ]}
+    />
+  );
+}
+
+function HistoryTable() {
+  return (
+    <Table
+      headers={["Type", "Address", "Token", "Amount", "Timestamp"]}
+      data={[
+        ["Deposit", "0x9876...", "USDC", "50", "2025-03-03 12:34:56"],
+        ["Withdraw", "0x6543...", "USDC", "25", "2025-03-02 11:22:33"]
+      ]}
+    />
   );
 }
 
 export default App;
+
