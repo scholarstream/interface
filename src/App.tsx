@@ -23,11 +23,6 @@ const App: FC = () => {
       }}
     >
       <h1>🎓 ScholarStream</h1>
-      <button
-        onClick={() => openModal(<p>This is a modal content from App</p>)}
-      >
-        Open Modal in App
-      </button>
       <ConnectButton />
       <BalanceSection openModal={openModal} />
       <ActiveStreamsSection openModal={openModal} />
