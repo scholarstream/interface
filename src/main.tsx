@@ -1,24 +1,12 @@
-import { FC, ReactNode, StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { FC, ReactNode, StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
 
 import '@rainbow-me/rainbowkit/styles.css';
-import {
-  getDefaultConfig,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
-} from 'wagmi/chains';
-import {
-  QueryClientProvider,
-  QueryClient,
-} from "@tanstack/react-query";
+import { mainnet, polygon, optimism, arbitrum, base } from 'wagmi/chains';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
@@ -30,14 +18,12 @@ const config = getDefaultConfig({
 });
 
 const RainbowkitWrapper: FC<{ children?: ReactNode }> = ({ children }) => (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
-          {children}
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-)
+  <WagmiProvider config={config}>
+    <QueryClientProvider client={queryClient}>
+      <RainbowKitProvider>{children}</RainbowKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
+);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -45,4 +31,4 @@ createRoot(document.getElementById('root')!).render(
       <App />
     </RainbowkitWrapper>
   </StrictMode>,
-)
+);

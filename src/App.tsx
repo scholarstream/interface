@@ -5,7 +5,7 @@ function App() {
     <div>
       {/* Header & Wallet */}
       <h1>🎓 ScholarStream</h1>
-      <ConnectButton/>
+      <ConnectButton />
 
       {/* Balances Section */}
       <h2>📊 Balances</h2>
@@ -130,6 +130,4 @@ function StreamsTable() {
   );
 }
 
-
 export default App;
-
