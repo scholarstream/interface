@@ -11,7 +11,11 @@ const Form: FC<FormProps> = ({ fields, submitText }) => (
       <div key={index} style={{ marginBottom: '10px' }}>
         <label>{field.label}</label>
         <br />
-        <input type="text" placeholder={field.placeholder} />
+        <input
+          type="text"
+          placeholder={field.placeholder}
+          style={{ width: '320px' }}
+        />
         <br />
       </div>
     ))}
