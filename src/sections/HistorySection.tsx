@@ -1,5 +1,5 @@
 import NeedWalletConnected from '../utils/NeedWalletConnected';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import Table from '../utils/Table';
 
 const HistoryTable: FC = () => (
@@ -12,17 +12,8 @@ const HistoryTable: FC = () => (
   />
 );
 
-const HistorySection: FC<{ openModal: (content: ReactNode) => void }> = ({
-  openModal,
-}) => (
+const HistorySection: FC = () => (
   <NeedWalletConnected title="📖 HISTORY">
-    <h3>History</h3>
-    <button
-      onClick={() => openModal(<p>This is a modal content from History</p>)}
-    >
-      Open Modal in History
-    </button>
-
     <HistoryTable />
   </NeedWalletConnected>
 );
