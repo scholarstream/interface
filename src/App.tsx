@@ -1,16 +1,17 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { WagmiProvider, useAccount } from 'wagmi'
 
-function App() {
-  return (
-    <div style={{ maxWidth: "800px", padding: '1rem', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
-      {/* Header & Wallet */}
-      <h1>🎓 ScholarStream</h1>
-      <ConnectButton />
-      
+function NeedWalletConnected({ title, children }) {
+    const { isConnected } = useAccount();
+    return <div>
       <hr />
-      
-      {/* Balances Section */}
-      <h2>📊 BALANCES</h2>
+      <h2>{title}</h2>
+      {isConnected ? children : <p>Please connect your wallet.</p>}
+    </div>
+}
+
+function BalanceSection() {
+    return <NeedWalletConnected title="📊 BALANCES">
       <h3>Deposit Token:</h3>
       <Form
         fields={[
@@ -32,11 +33,11 @@ function App() {
           ]
         ]}
       />
-      
-      <hr />
-      
-      {/* Active Streams Section */}
-      <h2>📜 ACTIVE STREAMS</h2>
+    </NeedWalletConnected>
+}
+
+function ActiveStreamsSection() {
+    return <NeedWalletConnected title="📜 ACTIVE STREAMS">
       <h3>Create Stream:</h3>
       <Form
         fields={[
@@ -51,12 +52,26 @@ function App() {
       
       <h3>Active Streams</h3>
       <StreamsTable />
-      
-      <hr />
-      
-      {/* History Section */}
-      <h2>📖 HISTORY</h2>
+    </NeedWalletConnected>
+}
+
+function HistorySection() {
+    return <NeedWalletConnected title="📖 HISTORY">
+      <h3>History</h3>
       <HistoryTable />
+    </NeedWalletConnected>
+}
+
+function App() {
+  return (
+    <div style={{ padding: '1rem', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
+      {/* Header & Wallet */}
+      <h1>🎓 ScholarStream</h1>
+      <ConnectButton />
+      
+      <BalanceSection />
+      <ActiveStreamsSection />
+      <HistorySection/>
     </div>
   );
 }
