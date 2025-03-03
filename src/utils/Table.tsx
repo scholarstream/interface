@@ -6,7 +6,7 @@ interface TableProps {
 }
 
 const Table: FC<TableProps> = ({ headers, data }) => (
-  <table border={1}>
+  <table border={1} style={{ margin: '16px 0' }}>
     <thead>
       <tr>
         {headers.map((header, index) => (
