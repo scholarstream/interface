@@ -44,19 +44,9 @@ const StreamsTable: FC = () => (
   />
 );
 
-const ActiveStreamsSection: FC<{
-  openModal: (content: ReactNode) => void;
-}> = ({ openModal }) => (
-  <NeedWalletConnected title="📜 ACTIVE STREAMS">
-    <h3>Create Stream:</h3>
-    <button
-      onClick={() =>
-        openModal(<p>This is a modal content from ActiveStream</p>)
-      }
-    >
-      Open Modal in ActiveStream
-    </button>
-
+const CreateStreamModal: FC = () => (
+  <div>
+    <h3>Create Stream</h3>
     <Form
       fields={[
         { label: 'Payee', placeholder: 'Payee Address' },
@@ -65,10 +55,23 @@ const ActiveStreamsSection: FC<{
       ]}
       submitText="Create Stream"
     />
-    <hr />
-    <h3>Active Streams</h3>
-    <StreamsTable />
-  </NeedWalletConnected>
+  </div>
 );
+
+const ActiveStreamsSection: FC<{
+  openModal: (content: ReactNode) => void;
+}> = ({ openModal }) => {
+  const createStreamButton = (
+    <button onClick={() => openModal(<CreateStreamModal />)}>
+      Create Stream
+    </button>
+  );
+  return (
+    <NeedWalletConnected title="📜 ACTIVE STREAMS">
+      {createStreamButton}
+      <StreamsTable />
+    </NeedWalletConnected>
+  );
+};
 
 export default ActiveStreamsSection;
